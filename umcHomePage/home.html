@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 문서의 정보를 담는 부분 -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>main</title>
+  <style>
+    body{
+      background-color: black;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    section{
+      text-align: center;
+    }
+
+    /* 링크 기본 스타일 없애기 */
+    a.btn {
+      display: inline-block;      /* 버튼처럼 크기 가질 수 있게 */
+      text-decoration: none;      /* 밑줄 제거 */
+      color: white;               /* 글자색 */
+      font-size: 11px;
+      background-color: rgba(88, 88, 88, 0); /* 진한 회색 */
+      padding: 10px 20px;         /* 버튼 내부 여백 */
+      border-radius: 60px;        /* 둥근 모양 */
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    /* 마우스 올렸을 때 */
+    a.btn:hover {
+      color: rgb(220, 220, 220);
+    }
+
+    /* 선택(active) 상태 */
+    a.btn.active {
+      background-color: green;
+    }
+
+    .joinBtn{
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 17px;
+      font-weight: bold;
+      color: rgb(181, 181, 181);
+      background-color: rgb(88, 88, 88);
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      width: 150px;
+      height: 50px;
+    }
+
+    .img{
+      display: block;
+      margin: 150px auto 30px;
+      width: 400px;
+    }
+    .p{
+      display:block;
+      color: white;
+      text-align: center;
+    }
+
+    nav{
+      margin: 20px auto;
+      width: 325px; 
+    }
+    nav ul{
+      background-color: rgba(88, 88, 88, 0.463);
+      list-style: none;
+      display: flex;          /* 가로 배치 */
+      justify-content: center;
+      align-items: center;
+      gap: 5px;              /* li 사이 간격 */
+      border-radius: 60px;
+      margin: 0;
+      padding: 0;
+      height: 45px;
+    }
+
+    /* 햄버거 버튼 */
+    .hamburger {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+    }
+
+    /* 사이드바 */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(50, 50, 50, 0.95);
+      transition: right 0.3s ease;
+      padding-top: 60px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 20px;;
+    }
+
+    .sidebar li {
+      margin: 20px 0;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    /* 화면 줄어들었을 때 */
+    @media (max-width: 600px) {
+      nav ul {
+        display: none; /* 기본 네비게이션 숨기기 */
+      }
+      .hamburger {
+        display: flex; /* 햄버거 아이콘 보이기 */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 실제 화면에 보이는 내용 -->
+  <!-- 상단바 섹션 -->
+  <section>
+    <nav>
+      <ul>
+        <li><a href="home.html" class="btn active">Home</a></li>
+        <li><a href="projects.html" class="btn">Projects</a></li>
+        <li><a href="members.html" class="btn">Members</a></li>
+        <li><a href="faq.html" class="btn">FAQ</a></li>
+      </ul>
+    </nav>
+    <!-- 햄버거 버튼 -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+
+  <!-- 사이드바 -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+  </div>
+
+  <!-- 중간 내용 섹션 -->
+  <section>
+    <img class="img" src="assets/logo.png" alt="로고" width="300" />
+    <p class="p">앱&웹 서비스 런칭에 도전하는 대학생 IT 연합동아리</p>
+    <button class="joinBtn">9기 모집 완료</button>
+  </section>
+
+  <!--JS 코드-->
+  <script>
+    const buttons = document.querySelectorAll(".btn");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active")); // 다른 버튼 초기화
+          btn.classList.add("active"); // 클릭된 버튼만 active 적용
+        });
+      }); 
+      
+    // 햄버거 메뉴 토글
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
