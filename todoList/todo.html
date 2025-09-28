@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="./dist/main.js"></script>
+  <title>todo</title>
+  <style>
+    body{
+      background-color: rgb(199, 216, 223);
+      margin: 0;
+      text-align: center ;
+    }
+    header{
+      margin: 150px 0 0 0;
+    }
+    #input{
+      margin: 0 auto;
+    }
+    #list{
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    #todo, #done{
+      width: 300px;
+      height: 400px;
+      background-color: rgba(255, 255, 255, 0.434);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .study-input {
+      width: 665px;       
+      padding: 10px 12px; 
+      font-size: 16px;   
+      border: 2px solid rgb(151, 166, 174);
+      border-radius: 6px; 
+    }
+    p{
+      margin-top: 0;
+      font-size: 10;
+      font-weight: bold;
+    }
+    #todo-list{
+      list-style-type: none;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    #done-list{
+      list-style-type: none;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+    .item{
+      list-style: none;
+      background-color: white;
+      color: rgb(56, 58, 59);
+      display: flex;
+      padding: 5px 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px;
+    }
+    .complete-btn{
+      background-color: rgb(168, 185, 195);
+      color: rgb(67, 70, 70);
+      border-radius: 6px;
+      border:none;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: .2s;
+      font-size: 10px;
+    }
+    .complete-btn:hover {
+      background: rgb(109, 123, 130);
+    }
+    hr{
+      border: none;
+      border-top: 1px solid rgb(115, 128, 135);
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>UMC Study Plan</h1> 
+  </header>
+  <section id="input">
+    <input type="text" class="study-input" placeholder="스터디 계획을 작성해보세요!" maxlength="10" />
+    <section id="list">
+      <section id="todo">
+        <p>해야 할 일</p>
+        <hr>
+        <ul id="todo-list">
+        </ul>
+      </section>
+      <section id="done">
+        <p>해낸 일</p>
+        <hr>
+        <ul id="done-list">
+        </ul>
+      </section>
+    </section>
+  </section>
+</body>
+</html>
