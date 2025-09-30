@@ -11,7 +11,7 @@ export default function TodoItem({ id, text, actionLabel, onAction }: Props) {
       <span className="todoText">{text}</span>
       <button
         type="button"
-        className={actionLabel === "완료" ? "completeButton todoBtn" : "deleteButton todoBtn"}
+        className={actionLabel === "완료" ? "completeButton" : "deleteButton"}
         onClick={() => onAction(id)}
       >
         {actionLabel}
