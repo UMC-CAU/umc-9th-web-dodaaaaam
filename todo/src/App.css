@@ -13,6 +13,16 @@ body {
   align-items: center;
 }
 
+/* 다크모드용 */
+html.dark body {
+  background-color: rgb(73, 86, 93);    
+  color: #ffffff;             
+}
+
+hr{
+  border: 1px solid rgb(168, 181, 186);
+}
+
 .header{
   font-size: 20px;
   font-weight: bold;
@@ -80,10 +90,6 @@ form{
   min-height: 450px;
 }
 
-hr{
-  border: 1px solid rgb(168, 181, 186);
-}
-
 .todoList-item-list{
   list-style: none;
   padding: 10px;
@@ -100,6 +106,7 @@ hr{
 
 .todoText{
   background-color: white;
+  color: rgb(83, 83, 83);
   flex: 1 1 auto;     /* 남은 공간 채우기 + 필요 시 수축 */
   white-space: normal; 
   min-width: 0;
@@ -121,6 +128,26 @@ hr{
   color: white;
 }
 
+/* 공통 버튼 모양 */
+.darkModeBtn {
+  display: inline-flex;
+  width: 40px;            /* 고정 크기: 콩알 방지 */
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;  /* 원형 */
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color .2s ease, transform .2s ease;
+  padding: 0;             /* 브라우저 기본 패딩 제거 */
+}
+
+/* 아이콘 크기 */
+.darkModeBtn .icon {
+  width: 24px;
+  height: 24px;
+}
 
 /* 2) 태블릿(768px+)에서 여백/최대폭 조정 */
 @media (min-width: 768px) {

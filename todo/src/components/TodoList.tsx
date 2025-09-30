@@ -1,4 +1,5 @@
 import { useTodo } from "../hooks/useTodo";
+import TodoItem from "./TodoItem";
 
 export default function TodoList({ showDone = false }: { showDone?: boolean }) {
   const { todos, completeTodo, deleteTodo } = useTodo();
@@ -10,10 +11,13 @@ export default function TodoList({ showDone = false }: { showDone?: boolean }) {
   return (
     <ul className="todoList-item-list">
       {list.map((t) => (
-        <li key={t.id} className="todoList-item">
-          <span className={t.isDone ? "done" : ""}>{t.text}</span>
-          <button onClick={() => onAction(t.id)}>{actionLabel}</button>
-        </li>
+        <TodoItem
+            key={t.id}
+            id={t.id}
+            text={t.text}
+            actionLabel={actionLabel}
+            onAction={onAction}
+          />
       ))}
     </ul>
   );
