@@ -1,23 +1,19 @@
-import type { Todo } from "../types/todo";
-import TodoItem from "./TodoItem";
+import { useTodo } from "../hooks/useTodo";
 
-type Props = {
-  items: Todo[];
-  actionLabel: "완료" | "삭제";
-  onAction: (id: number) => void;
-};
+export default function TodoList({ showDone = false }: { showDone?: boolean }) {
+  const { todos, completeTodo, deleteTodo } = useTodo();
 
-export default function TodoList({ items, actionLabel, onAction }: Props) {
+  const list = todos.filter(t => t.isDone === showDone);
+  const actionLabel = showDone ? "삭제" : "완료";
+  const onAction = showDone ? deleteTodo : completeTodo;
+  
   return (
     <ul className="todoList-item-list">
-      {items.map((t) => (
-        <TodoItem
-          key={t.id}
-          id={t.id}
-          text={t.text}
-          actionLabel={actionLabel}
-          onAction={onAction}
-        />
+      {list.map((t) => (
+        <li key={t.id} className="todoList-item">
+          <span className={t.isDone ? "done" : ""}>{t.text}</span>
+          <button onClick={() => onAction(t.id)}>{actionLabel}</button>
+        </li>
       ))}
     </ul>
   );
