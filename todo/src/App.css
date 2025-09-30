@@ -1,0 +1,133 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Apple SD Gothic Neo, "Malgun Gothic", sans-serif;
+  background-color: rgb(199, 216, 223);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page{
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: min(92vw, 680px);   /* 화면 92%까지, 최대 750px */
+  margin: 0 auto;            /* 가운데 정렬 */
+  padding: 16px;
+}
+
+form{
+  gap: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* input 창이랑 버튼은 기본값 다름 -> 맞춰주기 */
+.inputBox, .addButton {
+  box-sizing: border-box;   /* padding, border 포함한 총 높이를 35px로 */
+  padding: 5px;               /* 기본 패딩 */
+  margin: 0;                /* 기본 마진 제거 */
+  border: none;  
+  font-size: 14px;          /* 폰트 크기도 맞추기 */
+  height: 35px;
+}
+
+.inputBox{
+  flex: 1;         /* form 안에서 남는 공간 채움 */ 
+  height: 45px;
+  font-size: clamp(14px, 2.5vw, 16px);
+  padding: 0 12px;
+}
+
+.addButton{
+  width: 55px;
+  height: 45px;
+  flex-shrink: 0;           /* 줄어들지 않음 */
+  background-color: rgb(117, 142, 153); 
+  color: white;
+}
+
+.listContainer{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.todoList{
+  background-color: rgba(255, 255, 255, 0.518);
+  border-radius: 8px;
+  flex: 1;
+  width: clamp(200px, 45%, 300px);
+  padding: 5px 15px;
+  text-align: center;
+  min-height: 450px;
+}
+
+hr{
+  border: 1px solid rgb(168, 181, 186);
+}
+
+.todoList-item-list{
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+.todoList-item{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;          /* 버튼 높이 맞추기 위해 stretch => center랑 같이 쓸 수 없음  */
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.todoText{
+  background-color: white;
+  flex: 1 1 auto;     /* 남은 공간 채우기 + 필요 시 수축 */
+  white-space: normal; 
+  min-width: 0;
+  overflow-wrap: anywhere; /* 긴 단어/URL도 줄바꿈 */
+  padding: 0 12px;
+  display: flex;          /* ← 포인트 */
+  align-items: center;    /* 한 줄일 때 중앙 느낌 */
+}
+
+.completeButton, .deleteButton{
+  box-sizing: border-box;   /* padding, border 포함한 총 높이를 35px로 */
+  padding: 5px;               /* 기본 패딩 */
+  margin: 0;                /* 기본 마진 제거 */
+  flex: 0 0 auto;     /* 수축 금지 */
+  border: none;  
+  width: 55px;
+  align-self: stretch;
+  background-color: rgb(117, 142, 153); 
+  color: white;
+}
+
+
+/* 2) 태블릿(768px+)에서 여백/최대폭 조정 */
+@media (min-width: 768px) {
+  .container { width: min(92vw, 750px); gap: 12px; }
+}
+
+/* 3) 데스크톱(1024px+)에서 살짝 넓게 */
+@media (min-width: 1024px) {
+  .container { width: min(92vw, 900px); }
+}
