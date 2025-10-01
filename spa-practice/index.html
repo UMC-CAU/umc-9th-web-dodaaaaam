@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>spa-practice with History API</title>
+</head>
+<body>
+  <header>
+    <h1>spa-practice</h1>
+    <nav class="navbar">
+      <a href="/" data-link>Home</a>         <!--data-link: spa 라우터가 가로채야 하는 내부 링크-->
+      <a href="/about" data-link>About</a>
+      <a href="/post" data-link>Post</a>
+    </nav>
+  </header>
+  <main id="app"></main>
+
+  <script>
+    // 페이지별 html 
+    const PAGES = {
+      "/": `
+        <h1>Home</h1>
+        <p>전체 새로고침 없이 <code>pushState</code>로 URL만 바꾸는 연습.</p>
+        <p>현재 경로: <code>${location.pathname}</code></p>
+      `,
+      "/about": `
+        <h1>About</h1>
+        <p>React Router 없이 History API만 써서 화면 갈아끼우기!</p>
+        <ul>
+          <li>링크 클릭 → 기본 이동 막고 <code>history.pushState()</code></li>
+          <li>뒤/앞 이동 → <code>popstate</code> 이벤트로 다시 렌더</li>
+        </ul>
+        <p>현재 경로: <code>${location.pathname}</code></p>
+      `,
+      "/post": `
+        <h1>Post</h1>
+        <p>아주 단순히 고정 경로만 지원하는 버전.</p>
+        <p>현재 경로: <code>${location.pathname}</code></p>
+      `
+    };
+
+    // 렌더 함수 : 현재 pathname으로 내용 갈아끼우기 
+    function render() {
+      const app = document.getElementById("app");
+      // PAGES[location.pathname] 값이 undefined면 404 페이지 
+      app.innerHTML = PAGES[location.pathname] ?? ` 
+        <h1>404 Not Found</h1>
+        <p>정의되지 않은 경로입니다: <code>${location.pathname}</code></p>
+      `;
+
+      // 활성 링크 표시(선택)
+      document.querySelectorAll('a[data-link]').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === location.pathname);
+      });
+    }
+
+    // 내부 링크 클릭 가로채서 pushState + 렌더 
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-link]');
+      if(!a) return;
+
+      e.preventDefault();
+      history.pushState({}, "", a.href);
+      console.log("pushState 실행됨:", a.href);
+      render();
+    });
+
+    window.addEventListener('popstate', () => {
+      console.log("popstate 발생 - 이동 후 경로:", location.pathname);
+      render();
+    });
+
+    render();
+  </script> 
+</body>
+</html>
