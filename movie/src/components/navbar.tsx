@@ -7,13 +7,13 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="flex justify-center gap-2 p-4">
+    <nav className="flex justify-start gap-2 p-4">
       <Link
         to="/"
         className={`px-3 py-1 rounded transition ${
           pathname === "/"
-            ? "bg-blue-500 text-white"
-            : "bg-gray-200 hover:bg-gray-300"
+            ? "text-black font-bold"
+            : "text-black font-thin"
         }`}
       >
         Home
@@ -26,7 +26,7 @@ const Navbar = () => {
             key={c}
             to={to}
             className={`px-3 py-1 rounded capitalize transition
-              ${active ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+              ${active ? "text-black font-bold" : "text-black font-thin"}`}
           >
             {c.replace("_", " ")}
           </Link>
