@@ -14,7 +14,7 @@ const MoviesPage = () => {
   }, [category]);
 
   const { movies, loading, error } = useMovies(category, page);
-  
+
   const totalPages = movies?.total_pages ?? 1;
 
   if (error){
@@ -34,7 +34,7 @@ const MoviesPage = () => {
   }
 
   return (
-    <section>
+    <section className="mx-auto max-w-7xl px-6 py-6">
       <section className="flex items-center justify-center gap-4 mb-6">
         <button
           className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-40 text-black"
