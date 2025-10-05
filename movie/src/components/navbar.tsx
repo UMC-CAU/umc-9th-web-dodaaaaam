@@ -12,8 +12,8 @@ const Navbar = () => {
         to="/"
         className={`px-3 py-1 rounded transition ${
           pathname === "/"
-            ? "text-black font-bold"
-            : "text-black font-thin"
+            ? "font-bold"
+            : "font-thin"
         }`}
       >
         Home
@@ -26,7 +26,7 @@ const Navbar = () => {
             key={c}
             to={to}
             className={`px-3 py-1 rounded capitalize transition
-              ${active ? "text-black font-bold" : "text-black font-thin"}`}
+              ${active ? "font-bold" : "font-thin"}`}
           >
             {c.replace("_", " ")}
           </Link>

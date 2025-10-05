@@ -50,11 +50,11 @@ export default function MovieSection({ category, title }: Props) {
       <header className="mb-4 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-          <p className="text-gray-600">{description}</p>
+          <p className="text-gray-300">{description}</p>
         </div>
         <Link
           to={`/movies/${category}`}
-          className="rounded-full border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100 active:scale-[.98] dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+          className="rounded-full border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-gray-100 active:scale-[.98] dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
         >
           더보기
         </Link>
@@ -62,7 +62,7 @@ export default function MovieSection({ category, title }: Props) {
       <ul className="flex gap-4"> 
         {movies?.results.slice(0, 5).map((m) => ( 
           <MovieCard key={m.id} movie={m} /> ))} 
-        </ul>
+      </ul>
     </section>
   );
 }
