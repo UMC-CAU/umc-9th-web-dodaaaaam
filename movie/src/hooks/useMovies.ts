@@ -1,7 +1,6 @@
-// src/hooks/useMovies.ts
 import { useEffect, useState } from "react";
 import axios from "axios";
-import type { MovieResponse, Category } from "../types/movie";
+import type { MovieResponse, Category } from "../types/Movie";
 
 const headers = {
   Authorization:

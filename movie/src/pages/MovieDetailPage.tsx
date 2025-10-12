@@ -1,53 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import type { MovieDetail } from "../types/MovieDetail";
-import { mapCredits } from "../utils/mapCredits";
-import type { CreditsResponse, PersonInfo } from "../types/MovieDetail";
 import { CrewCard } from "../components/CrewCard";
-import axios from "axios";
-
-const headers = {
-  Authorization:
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MzU4YzE1M2Q4YWE3NTg3YTM2ZjZjNDEyYmYxYjJkYiIsIm5iZiI6MTc1OTMwMjQ2MC42NjMsInN1YiI6IjY4ZGNkMzNjMWRkM2FjMWMzNWJiMWFiNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YRrFaWC_OMP4AwW6aqBRmNUJdv4J1Ta-YulFGWBUwLQ",
-};
-
-type CreditsVM = { cast: PersonInfo[]; directors: PersonInfo[] };
+import FullPageSpinner from "../components/FullPageSpinner";
+import ErrorMessage from "../components/ErrorMessage";
+import { useMovie } from "../hooks/useMovie";
 
 const MovieDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const [detail, setDetail] = useState<MovieDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [credits, setCredits] = useState<CreditsVM>({ cast: [], directors: [] });
+  const { detail, credits, loading, error } = useMovie();  //API 호출 훅 
 
-  useEffect(() => {
-    if (!id) return;
-    (async () => {
-      try {
-        const detail = await axios.get<MovieDetail>(
-          `https://api.themoviedb.org/3/movie/${id}?language=en-US`,    // 영화 상세 정보 api
-          { headers }
-        );
-        const crewData = await axios.get<CreditsResponse>(
-          `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,   // 감독/출연진 정보 api 
-          { headers }
-        );
-        setDetail(detail.data);
-        setCredits(mapCredits(crewData.data));
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [id]);
-
-  if (loading)
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-transparent" />
-      </div>
-    );
-
-  if (!detail) return null;
-  if (!credits) return null;
+  if (error) return <ErrorMessage message={error} />;
+  if (loading) return <FullPageSpinner />;
+  if (!detail || !credits) return null;
 
   return (
     <section>
