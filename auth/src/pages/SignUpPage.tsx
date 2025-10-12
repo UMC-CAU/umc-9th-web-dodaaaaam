@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import loginImage from "../assets/login-image.png";
 import { useState } from "react";
 import { InputField } from "../components/InputField";
 import { SubmitButton } from "../components/SubmitButton";
 import { BackButton } from "../components/BackButton";
+import { signup } from "../apis/auth";
 
 type SignUpValues = {
   email: string;
@@ -17,7 +18,17 @@ const SignUpPage = () => {
   const [step, setStep] = useState(0);
   const methods = useForm<SignUpValues>({mode: "onChange",});
   const { getValues } = methods;
-  const onSubmit = (data: SignUpValues) => console.log("회원가입:", data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: SignUpValues) => {
+    if (step !== 2) return;
+    try {
+      await signup({ name: data.nickname, email: data.email, password: data.password });
+      navigate("/"); 
+    } catch {
+      alert("회원가입 실패");
+    }
+  };
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black flex items-center justify-center px-4">

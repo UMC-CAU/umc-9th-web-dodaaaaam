@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import loginImage from "../assets/login-image.png";
 import { InputField } from "../components/InputField";
 import { SubmitButton } from "../components/SubmitButton";
 import { BackButton } from "../components/BackButton";
+import { login } from "../apis/auth";
 
 type LoginValues = {
   email: string;
@@ -12,7 +13,16 @@ type LoginValues = {
 
 const LoginPage = () => {
   const methods = useForm<LoginValues>({ mode: "onChange" });
-  const onSubmit = (d: LoginValues) => console.log("로그인:", d);
+  const navigate = useNavigate();
+  
+  const onSubmit = async (value: LoginValues) => {
+    try {
+      await login(value);      // ← 토큰 저장까지 끝!
+      navigate("/");       // ← 홈으로 이동
+    } catch {
+      alert("로그인 실패");
+    }
+  };
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black flex items-center justify-center px-4 ">
