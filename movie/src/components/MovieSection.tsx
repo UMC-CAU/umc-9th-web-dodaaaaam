@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useMovies } from "../hooks/useMovies";
 import { MovieCard } from "./MovieCard";
-import type { Category } from "../types/movie";
+import type { Category } from "../types/Movie";
+import FullPageSpinner from "./FullPageSpinner";
+import ErrorMessage from "./ErrorMessage";
 
 type Props = {
   category: Category;
@@ -29,21 +31,8 @@ export default function MovieSection({ category, title }: Props) {
       description = "";
   }
 
-  if (error){
-    return (
-      <div className="text-center text-red-600 font-semibold my-4">
-          {error}
-      </div>
-    )
-
-  }
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-950">
-          <div className="h-12 w-12 border-4 border-gray-300 border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
-  }
+  if (error) return <ErrorMessage message={error} />;
+  if (loading) return <FullPageSpinner />;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-6">

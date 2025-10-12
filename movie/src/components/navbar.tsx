@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import type { Category } from "../types/movie";
+import type { Category } from "../types/Movie";
 
 const cats: Category[] = ["popular", "now_playing", "top_rated", "upcoming"];
 

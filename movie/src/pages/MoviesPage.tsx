@@ -1,37 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useMovies } from "../hooks/useMovies";
-import type { Category } from '../types/movie';
+import type { Category } from '../types/Movie';
 import { MovieCard } from "../components/MovieCard";
+import ErrorMessage from '../components/ErrorMessage';
+import FullPageSpinner from '../components/FullPageSpinner';
 
 const MoviesPage = () => {
   const { category } = useParams<{ category: Category }>();
   const [page, setPage] = useState(1);
 
-  // 카테고리 변경 -> 페이지 1 초기화
   useEffect(() => {
     setPage(1);
-  }, [category]);
+  }, [category]);    // 카테고리 변경시 페이지 1로 초기화 
 
-  const { movies, loading, error } = useMovies(category, page);
-
+  const { movies, loading, error } = useMovies(category, page);  //API 호출 훅 
   const totalPages = movies?.total_pages ?? 1;
 
-  if (error){
-    return (
-      <div className="text-center text-red-600 font-semibold my-4">
-          {error}
-      </div>
-    )
-
-  }
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-950">
-          <div className="h-12 w-12 border-4 border-gray-300 border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
-  }
+  if (error) return <ErrorMessage message={error} />;
+  if (loading) return <FullPageSpinner />;
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-6">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { Movie } from "../types/movie";
+import type { Movie } from "../types/Movie";
 import { memo } from "react";
 import noImage from "../assets/no-image.png";
 
