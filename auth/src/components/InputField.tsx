@@ -1,14 +1,7 @@
-import { useFormContext, get, type FieldValues, type Path, type RegisterOptions, type FieldError, } from "react-hook-form";
+import { useFormContext, get, type FieldValues, type FieldError, } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-
-type InputFieldProps<T extends FieldValues> = {
-  name: Path<T>;      // register에 넘길 필드 이름 
-  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];  // text, email, password, ... 중 하나 
-  placeholder?: string;  
-  rules?: RegisterOptions<T, Path<T>>;
-  withVisibilityToggle?: boolean;
-};
+import type { InputFieldProps } from "../types/InputFieldProps";
 
 export function InputField<T extends FieldValues>({
   name, type = "text", placeholder, rules, withVisibilityToggle = false,

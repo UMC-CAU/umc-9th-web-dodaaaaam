@@ -4,7 +4,7 @@ import loginImage from "../assets/login-image.png";
 import { InputField } from "../components/InputField";
 import { SubmitButton } from "../components/SubmitButton";
 import { BackButton } from "../components/BackButton";
-import { login } from "../apis/auth";
+import { signin } from "../apis/auth";
 
 type LoginValues = {
   email: string;
@@ -17,10 +17,13 @@ const LoginPage = () => {
   
   const onSubmit = async (value: LoginValues) => {
     try {
-      await login(value);      // ← 토큰 저장까지 끝!
-      navigate("/");       // ← 홈으로 이동
-    } catch {
-      alert("로그인 실패");
+      await signin(value);      // ← 토큰 저장까지 끝!
+      navigate("/");            // ← 홈으로 이동
+    } catch (err){
+      // 서버에서 온 메시지나 기본 메시지를 표시
+      console.error("[signin FAIL]", err);
+      const message = err instanceof Error ? err.message : "로그인에 실패했습니다.";
+      alert(message);
     }
   };
 

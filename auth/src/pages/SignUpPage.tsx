@@ -25,8 +25,9 @@ const SignUpPage = () => {
     try {
       await signup({ name: data.nickname, email: data.email, password: data.password });
       navigate("/"); 
-    } catch {
-      alert("회원가입 실패");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "회원가입에 실패했습니다.";
+      alert(message);
     }
   };
 
