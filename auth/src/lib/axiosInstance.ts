@@ -10,7 +10,7 @@ import { useAuthStore } from "../store/authStore";
 
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/v1",
-  withCredentials: true, // refresh 쿠키용
+  //withCredentials: true, // refresh 쿠키용
 });
 
 function setAuthHeader(cfg: AxiosRequestConfig, token: string) {

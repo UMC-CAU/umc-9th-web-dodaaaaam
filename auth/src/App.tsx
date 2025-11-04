@@ -11,6 +11,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { useExpiry} from './hooks/useExpiry';
 import { useEffect } from 'react';
 import { useAuthStore } from "./store/authStore";
+import GoogleCallbackPage from './pages/GoogleCallbackPage';
 
 // 경로(path)와 보여줄 화면(element)를 정의
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
     path: "/signUp",
     element: <SignUpPage />,
   },
+  {
+    path: "/v1/auth/google/callback",
+    element: <GoogleCallbackPage />,
+  }
 ]);
 
 function App() {

@@ -4,6 +4,7 @@ import loginImage from "../assets/login-image.png";
 import { InputField } from "../components/InputField";
 import { SubmitButton } from "../components/SubmitButton";
 import { BackButton } from "../components/BackButton";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 import { signin } from "../apis/auth";
 
 type LoginValues = {
@@ -60,6 +61,7 @@ const LoginPage = () => {
               />
               {/* 제출 버튼 */}
               <SubmitButton<LoginValues> variant="submit">로그인</SubmitButton>
+              <GoogleLoginButton />
             </form>
           </FormProvider>
 
