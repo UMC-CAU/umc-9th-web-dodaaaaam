@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import loginImage from "../assets/login-image.png";
 import { InputField } from "../components/InputField";
@@ -15,11 +15,13 @@ type LoginValues = {
 const LoginPage = () => {
   const methods = useForm<LoginValues>({ mode: "onChange" });
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"; // 기본은 홈화면
   
   const onSubmit = async (value: LoginValues) => {
     try {
-      await signin(value);      // ← 토큰 저장까지 끝!
-      navigate("/");            // ← 홈으로 이동
+      await signin(value); 
+      navigate(from, { replace: true });         
     } catch (err){
       // 서버에서 온 메시지나 기본 메시지를 표시
       console.error("[signin FAIL]", err);
