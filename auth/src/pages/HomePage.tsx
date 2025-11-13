@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useLpListQuery } from "../hooks/useLpQuery";
 import { Heart } from "lucide-react";
 
-type Sort = "desc" | "asc";
+type Order = "desc" | "asc";
 
 const HomePage = () => {
-  const [sort, setOrder] = useState<Sort>("asc");
+  const [order, setOrder] = useState<Order>("asc");
   const searchString: string | null = null; 
 
   const {
@@ -16,7 +16,7 @@ const HomePage = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useLpListQuery(searchString, sort);
+  } = useLpListQuery(searchString, order);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,7 +36,7 @@ const HomePage = () => {
     );
     observer.observe(el);
     return () => observer.unobserve(el);
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage, sort]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, order]);
 
   if (isLoading) return <div className="text-center mt-10">Loading...</div>;
   if (error)
@@ -57,11 +57,11 @@ const HomePage = () => {
             <div className="inline-flex rounded-lg border border-zinc-200 overflow-hidden">
               <button
                 type="button"
-                aria-pressed={sort === "desc"}
+                aria-pressed={order === "desc"}
                 onClick={() => setOrder("desc")}
                 className={
                   "px-3 py-1.5 text-sm transition-colors " +
-                  (sort === "desc"
+                  (order === "desc"
                     ? "bg-zinc-900 text-white"
                     : "bg-white text-zinc-700 hover:bg-zinc-100")
                 }
@@ -70,11 +70,11 @@ const HomePage = () => {
               </button>
               <button
                 type="button"
-                aria-pressed={sort === "asc"}
+                aria-pressed={order === "asc"}
                 onClick={() => setOrder("asc")}
                 className={
                   "px-3 py-1.5 text-sm border-l border-zinc-200 transition-colors " +
-                  (sort === "asc"
+                  (order === "asc"
                     ? "bg-zinc-900 text-white"
                     : "bg-white text-zinc-700 hover:bg-zinc-100")
                 }

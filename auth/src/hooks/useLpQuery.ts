@@ -1,13 +1,15 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { fetchLPs, fetchLPDetail } from "../apis/fetchLP";
 
+type Order = "desc" | "asc";
+
 export const useLpListQuery = (
   searchString: string | null,
-  sort: string
+  order: Order
 ) => {
   return useInfiniteQuery({
-    queryKey: [ 'lps' , { sort } ],
-    queryFn: fetchLPs(searchString, sort),
+    queryKey: [ 'lps' , { order } ],
+    queryFn: fetchLPs(searchString, order),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const nextCursor = lastPage.data?.nextCursor;
