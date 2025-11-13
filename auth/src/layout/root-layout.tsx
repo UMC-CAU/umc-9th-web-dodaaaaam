@@ -113,24 +113,6 @@ const RootLayout = () => {
           <Outlet />
         </main>
       </div>
-      { /*플로팅 버튼*/ }
-        <button>
-          <Link
-              to="/lps/new"
-              className="
-                fixed bottom-8 right-8
-                flex items-center justify-center
-                w-14 h-14
-                bg-emerald-500 hover:bg-emerald-600
-                text-white text-3xl font-bold
-                rounded-full shadow-lg
-                transition-all duration-200 ease-in-out
-                hover:scale-110
-              "
-            >
-              +
-            </Link>
-        </button>   
     </div>
   );
 };
