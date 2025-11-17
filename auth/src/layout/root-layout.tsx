@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 import { useAuthStore } from '../store/authStore';
 import { signout } from '../apis/auth'
 
