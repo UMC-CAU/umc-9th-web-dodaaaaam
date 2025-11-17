@@ -1,11 +1,11 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import loginImage from "../assets/login-image.png";
-import { InputField } from "../components/InputField";
-import { SubmitButton } from "../components/SubmitButton";
-import { BackButton } from "../components/BackButton";
-import GoogleLoginButton from "../components/GoogleLoginButton";
-import { signin } from "../apis/auth";
+import loginImage from "../../assets/login-image.png";
+import { InputField } from "../../components/InputField";
+import { SubmitButton } from "../../components/SubmitButton";
+import { BackButton } from "../../components/BackButton";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
+import { signin } from "../../apis/auth";
 
 type LoginValues = {
   email: string;
@@ -63,6 +63,11 @@ const LoginPage = () => {
               />
               {/* 제출 버튼 */}
               <SubmitButton<LoginValues> variant="submit">로그인</SubmitButton>
+              <div className="flex items-center">
+                <div className="flex-grow border-t border-zinc-600"></div>
+                  <span className="mx-3 text-zinc-400 text-sm">OR</span>
+                <div className="flex-grow border-t border-zinc-600"></div>
+              </div>
               <GoogleLoginButton />
             </form>
           </FormProvider>

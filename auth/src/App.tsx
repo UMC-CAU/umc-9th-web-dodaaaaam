@@ -5,18 +5,19 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useEffect } from 'react';
 
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignUpPage from './pages/auth/SignUpPage';
 import MyPage from './pages/MyPage';
-import GoogleCallbackPage from './pages/GoogleCallbackPage';
+import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
 import RootLayout from './layout/root-layout'
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 import { useExpiry} from './hooks/useExpiry';
 import { useAuthStore } from "./store/authStore";
-import { CreateLpPage } from './pages/CreateLpPage';
-import { DetailedPage } from './pages/DetailedPage';
+import { CreateLpPage } from './pages/LP/CreateLpPage';
+import { DetailedPage } from './pages/LP/DetailedPage';
+import { CommentPage } from './pages/LP/CommentPage';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <DetailedPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/lps/:lpId/comments",
+        element: (
+          <ProtectedRoute>
+            <CommentPage />
           </ProtectedRoute>
         ),
       },
