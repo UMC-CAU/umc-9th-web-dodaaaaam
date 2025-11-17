@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import loginImage from "../assets/login-image.png";
+import loginImage from "../../assets/login-image.png";
 import { useState } from "react";
-import { InputField } from "../components/InputField";
-import { SubmitButton } from "../components/SubmitButton";
-import { BackButton } from "../components/BackButton";
-import { signup } from "../apis/auth";
+import { InputField } from "../../components/InputField";
+import { SubmitButton } from "../../components/SubmitButton";
+import { BackButton } from "../../components/BackButton";
+import { signup } from "../../apis/auth";
 
 type SignUpValues = {
   email: string;

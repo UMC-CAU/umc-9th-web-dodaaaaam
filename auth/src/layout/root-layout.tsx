@@ -6,11 +6,12 @@ import { signout } from '../apis/auth'
 
 const RootLayout = () => {
   const status = useAuthStore((s) => s.status);
-  const user = useAuthStore((s) => s.user); 
+  const user = useAuthStore((s) => s.user);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -23,13 +24,21 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (!open) return; // 열렸을 때만 감시
-    const onClick = (e: MouseEvent) => {
-      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
+    
+    const onMouseDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+
+      // 사이드바 안을 클릭 -> 무시
+      if (drawerRef.current?.contains(target)) return;
+      // 햄버거 버튼 클릭 -> 무시 (닫지 않음)
+      if (toggleBtnRef.current?.contains(target)) return;
+
+      // 그 외 아무 데나 클릭 -> 닫기
+      setOpen(false);
     };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
+
+    document.addEventListener('mousedown', onMouseDown);
+    return () => document.removeEventListener('mousedown', onMouseDown);
   }, [open]);
 
   return (
@@ -41,6 +50,7 @@ const RootLayout = () => {
             {/* 햄버거 버튼 */}
             <button
               type="button"
+              ref={toggleBtnRef}
               onClick={() => setOpen((v) => !v)}
               className="md:hidden inline-flex items-center justify-center rounded-md p-2 hover:bg-zinc-100"
               aria-label="메뉴 열기/닫기"
@@ -112,6 +122,25 @@ const RootLayout = () => {
         <main className="flex-1 min-w-0">
           <Outlet />
         </main>
+
+        {/* 플로팅 + 버튼 */}
+        <button
+          onClick={() => navigate('/lps/new')}
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full 
+                    bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg 
+                    flex items-center justify-center transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-7 h-7"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
       </div>
     </div>
   );

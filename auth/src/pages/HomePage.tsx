@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { useLpListQuery } from "../hooks/useLpQuery";
-import { Heart } from "lucide-react";
+import LPCard from "../components/LPCard";
+import type { LP } from "../types/LpDto";
+import LpSkeletonCard from "../components/LPSkeletonCard";
 
 type Order = "desc" | "asc";
 
@@ -12,7 +13,6 @@ const HomePage = () => {
   const {
     data,
     error,
-    isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -38,7 +38,6 @@ const HomePage = () => {
     return () => observer.unobserve(el);
   }, [hasNextPage, isFetchingNextPage, fetchNextPage, order]);
 
-  if (isLoading) return <div className="text-center mt-10">Loading...</div>;
   if (error)
     return (
       <div className="text-center mt-10 text-red-500">
@@ -46,7 +45,8 @@ const HomePage = () => {
       </div>
     );
 
-  const lps = data?.pages.flatMap((p) => p.data?.data ?? []) ?? [];
+  const lps: LP[] =
+    data?.pages.flatMap((p) => p.data?.data ?? []) ?? [];
 
   return (
     <div className="min-h-dvh bg-white text-zinc-900">
@@ -96,64 +96,22 @@ const HomePage = () => {
               justify-items-center
             "
           >
-            {lps.length === 0 ? (
+            {isFetchingNextPage ? (
+              // 초기 로딩 시 스켈레톤 카드 여러 개
+              Array.from({ length: 10 }).map((_, idx) => (
+                <LpSkeletonCard key={idx} />
+              ))
+            ) : lps.length === 0 ? (
               <p className="col-span-full text-center text-zinc-500">
                 등록된 LP가 없습니다.
               </p>
             ) : (
-              lps.map((lp) => (
-                <Link
-                  key={lp.id}
-                  to={`/lps/${lp.id}`}
-                  className="group block w-full max-w-[200px] relative"
-                >
-                  {/* 썸네일 */}
-                  <div 
-                    className="
-                      relative overflow-hidden rounded-lg shadow-md aspect-square bg-zinc-100 
-                      transform transition-transform duration-300 ease-in-out
-                      group-hover:scale-105
-                    ">
-                    <img
-                      src={lp.thumbnail}
-                      alt={lp.title}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* 오버레이 (hover 시 표시) */}
-                    <div
-                      className="
-                        absolute inset-0
-                        bg-black/50 
-                        opacity-0 
-                        group-hover:opacity-100
-                        transition-opacity 
-                        duration-300
-                        flex flex-col justify-center items-center
-                        text-center text-white p-3
-                      "
-                    >
-                      <h3 className="text-sm font-semibold mb-1">{lp.title}</h3>
-                      <p className="text-xs mb-2">
-                        {lp.tags?.map((tag) => `#${tag.name}`).join(" ")}
-                      </p>
-                      <p className="flex items-center gap-1 text-rose-400 text-sm">
-                        <Heart size={14} fill="currentColor" />
-                        {lp.likes?.length ?? 0}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))
+              lps.map((lp) => <LPCard key={lp.id} lp={lp} />)
             )}
           </div>
 
           {/* 감시용 센티넬 */}
           <div ref={observerRef} className="h-10" />
-
-          {/* 다음 페이지 로딩 표시 */}
-          {isFetchingNextPage && (
-            <div className="text-center py-5 text-zinc-500">불러오는 중...</div>
-          )}
         </div>
       </main>
     </div>
