@@ -2,9 +2,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import loginImage from "../../assets/login-image.png";
 import { InputField } from "../../components/InputField";
-import { SubmitButton } from "../../components/SubmitButton";
-import { BackButton } from "../../components/BackButton";
-import GoogleLoginButton from "../../components/GoogleLoginButton";
+import { SubmitButton } from "../../components/button/SubmitButton";
+import { BackButton } from "../../components/button/BackButton";
+import GoogleLoginButton from "../../components/button/GoogleLoginButton";
 import { signin } from "../../apis/auth";
 
 type LoginValues = {

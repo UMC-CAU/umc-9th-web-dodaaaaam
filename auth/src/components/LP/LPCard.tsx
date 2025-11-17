@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
-import type { LP } from "../types/LpDto";
+import type { LP } from "../../types/LpDto";
 
 type LPCardProps = {
   lp: LP;

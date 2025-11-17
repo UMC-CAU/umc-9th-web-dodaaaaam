@@ -11,7 +11,7 @@ import MyPage from './pages/MyPage';
 import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
 import RootLayout from './layout/root-layout'
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedRoute } from './layout/ProtectedRoute';
 
 import { useExpiry} from './hooks/useExpiry';
 import { useAuthStore } from "./store/authStore";

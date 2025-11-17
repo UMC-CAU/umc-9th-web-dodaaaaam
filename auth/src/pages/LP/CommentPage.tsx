@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLpCommentQuery } from "../../hooks/useLpQuery";
 import type { LPComment } from "../../types/LpDto";
-import { CommentSkeleton } from "../../components/CommentSkeleton";
+import { CommentSkeleton } from "../../components/LP/CommentSkeleton";
 
 type Order = "asc" | "desc";
 

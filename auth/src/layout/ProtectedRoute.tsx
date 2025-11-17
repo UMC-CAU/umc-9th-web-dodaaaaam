@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from "../store/authStore"
-import FullpageSpinner from "./FullPageSpinner"
+import FullpageSpinner from "../components/button/FullPageSpinner"
 import { useEffect, useRef } from 'react'
 import type { JSX } from 'react'
 

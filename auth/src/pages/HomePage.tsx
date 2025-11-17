@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLpListQuery } from "../hooks/useLpQuery";
-import LPCard from "../components/LPCard";
+import LPCard from "../components/LP/LPCard";
 import type { LP } from "../types/LpDto";
-import LpSkeletonCard from "../components/LPSkeletonCard";
+import LpSkeletonCard from "../components/LP/LPSkeletonCard";
 
 type Order = "desc" | "asc";
 
