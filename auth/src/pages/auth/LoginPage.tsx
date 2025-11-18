@@ -5,7 +5,7 @@ import { InputField } from "../../components/InputField";
 import { SubmitButton } from "../../components/button/SubmitButton";
 import { BackButton } from "../../components/button/BackButton";
 import GoogleLoginButton from "../../components/button/GoogleLoginButton";
-import { signin } from "../../apis/auth";
+import { signin } from "../../apis/authApis";
 
 type LoginValues = {
   email: string;

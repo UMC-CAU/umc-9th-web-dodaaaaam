@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import type { JSX } from 'react'
 
 export function ProtectedRoute({ children }: { children: JSX.Element }){
-  const status = useAuthStore((s) => s.status)   // 현재 상태 객체 s의 status 
+  const status = useAuthStore((s) => s.status)   
   const location = useLocation();
   const prevStatus = useRef(status);
 
@@ -17,6 +17,9 @@ export function ProtectedRoute({ children }: { children: JSX.Element }){
   }, [status]);
 
   if (status === 'loading') return <FullpageSpinner/>
-  if (status === 'unauthenticated') return <Navigate to="/signin" replace state={{ from: location }} />
+  if (status === 'unauthenticated'){
+    alert("로그인이 필요한 페이지입니다.");
+    return <Navigate to="/signin" replace state={{ from: location }} />
+  }
   return children
 }

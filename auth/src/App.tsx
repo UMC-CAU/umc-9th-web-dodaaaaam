@@ -15,7 +15,6 @@ import { ProtectedRoute } from './layout/ProtectedRoute';
 
 import { useExpiry} from './hooks/useExpiry';
 import { useAuthStore } from "./store/authStore";
-import { CreateLpPage } from './pages/LP/CreateLpPage';
 import { DetailedPage } from './pages/LP/DetailedPage';
 import { CommentPage } from './pages/LP/CommentPage';
 
@@ -33,14 +32,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/lps/new",
-        element: (
-          <ProtectedRoute>
-            <CreateLpPage />
           </ProtectedRoute>
         ),
       },

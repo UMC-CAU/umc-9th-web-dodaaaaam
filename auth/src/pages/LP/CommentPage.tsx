@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useLpCommentQuery } from "../../hooks/useLpQuery";
+import { useLpCommentQuery } from "../../hooks/useCommentQuery";
 import type { LPComment } from "../../types/LpDto";
 import { CommentSkeleton } from "../../components/LP/CommentSkeleton";
 

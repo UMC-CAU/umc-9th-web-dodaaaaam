@@ -40,3 +40,11 @@ export interface LPComment {
   updatedAt: string;
   author: Author;
 }
+
+export interface CreateLpRequest {
+  title: string;
+  content: string;
+  thumbnail: string;
+  tags: string[];
+  published: boolean;
+}

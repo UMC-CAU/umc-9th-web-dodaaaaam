@@ -5,7 +5,7 @@ import { useState } from "react";
 import { InputField } from "../../components/InputField";
 import { SubmitButton } from "../../components/button/SubmitButton";
 import { BackButton } from "../../components/button/BackButton";
-import { signup } from "../../apis/auth";
+import { signup } from "../../apis/authApis";
 
 type SignUpValues = {
   email: string;

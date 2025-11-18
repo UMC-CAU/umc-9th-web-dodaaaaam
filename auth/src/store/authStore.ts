@@ -1,6 +1,6 @@
 import { create } from 'zustand' 
 import type { User } from '../types/apiResponse';
-import { refresh } from '../apis/auth';
+import { refresh } from '../apis/authApis';
 
 type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
 
