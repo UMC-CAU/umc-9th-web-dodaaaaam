@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 
 const tabs = [
   { to: "/", label: "홈" },
-  { to: "/lps/new", label: "새로 만들기" },
   { to: "/search", label: "검색" },
   { to: "/myPage", label: "마이페이지" },
 ];

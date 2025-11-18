@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import SignUpPage from './pages/auth/SignUpPage';
+import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "/search",
+        element: <SearchPage />,
       },
       {
         path: "/myPage",
