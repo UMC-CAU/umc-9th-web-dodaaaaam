@@ -84,7 +84,7 @@ export function DetailedPage(){
           {LpData.tags?.map((tag) => (
             <span
               key={tag.id}
-              className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500 text-white text-xs"
+              className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500 text-white text-ms"
             >
               #{tag.name}
             </span>

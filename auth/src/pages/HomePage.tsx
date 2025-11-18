@@ -7,7 +7,7 @@ import LpSkeletonCard from "../components/LP/LPSkeletonCard";
 type Order = "desc" | "asc";
 
 const HomePage = () => {
-  const [order, setOrder] = useState<Order>("asc");
+  const [order, setOrder] = useState<Order>("desc");
   const searchString: string | null = null; 
 
   const {

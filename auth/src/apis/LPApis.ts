@@ -1,9 +1,12 @@
 import axiosInstance from "../utils/axiosInstance";
 import type { ApiEnvelope, CursorPayload } from "../types/apiResponse";
-import type { LP, LPComment } from "../types/LpDto";
+import type { CreateLpRequest, LP } from "../types/LpDto";
 
 const PAGE_SIZE = 30;
 
+/**
+ * 전체 LP 데이터 order순으로 조회 
+ */
 export const fetchLPs = (searchString: string | null, order: string) => 
   async ( { 
     pageParam = 0
@@ -30,6 +33,9 @@ export const fetchLPs = (searchString: string | null, order: string) =>
   return response.data; 
 };
 
+/**
+ * 각 LP 상세 조회 
+ */
 export const fetchLPDetail = async (
   id: number
 ): Promise<ApiEnvelope<LP>> => {
@@ -37,24 +43,12 @@ export const fetchLPDetail = async (
   return response.data;
 };
 
-export const fetchLPComment = async (
-  id: number,
-  order: string,
-  pageParam: number = 0
-): Promise<ApiEnvelope<CursorPayload<LPComment>>> => {
-  const params = new URLSearchParams({
-    limit: String(PAGE_SIZE),
-    order,
-  });
-
-  if (pageParam !== 0) {
-    params.append("cursor", String(pageParam));
-  }
-
-  const response = await axiosInstance.get<
-    ApiEnvelope<CursorPayload<LPComment>>
-  >(`/lps/${id}/comments?${params.toString()}`); 
-
-  console.log(response.data);
-  return response.data;
+/**
+ * LP 생성 
+ */
+export const createLP = async (
+  payload: CreateLpRequest
+): Promise<ApiEnvelope<LP>> => {
+  const res = await axiosInstance.post("/lps", payload);
+  return res.data;
 };

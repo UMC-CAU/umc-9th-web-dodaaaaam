@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useAuthStore } from '../store/authStore';
-import { signout } from '../apis/auth'
+import { signout } from '../apis/authApis'
+import { ProtectedRoute } from './ProtectedRoute';
+import LpCreateModal from '../components/LPCreateModal';
 
 const RootLayout = () => {
   const status = useAuthStore((s) => s.status);
@@ -12,6 +14,8 @@ const RootLayout = () => {
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -125,7 +129,7 @@ const RootLayout = () => {
 
         {/* 플로팅 + 버튼 */}
         <button
-          onClick={() => navigate('/lps/new')}
+          onClick={() => setIsCreateModalOpen(true)}
           className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full 
                     bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg 
                     flex items-center justify-center transition-all duration-200"
@@ -142,6 +146,15 @@ const RootLayout = () => {
           </svg>
         </button>
       </div>
+
+      {isCreateModalOpen && (
+        <ProtectedRoute>
+          <LpCreateModal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+          />
+        </ProtectedRoute>
+      )}
     </div>
   );
 };
