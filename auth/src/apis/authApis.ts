@@ -3,6 +3,7 @@ import { useAuthStore } from "../store/authStore";
 import type { AxiosError } from "axios";
 import { parseJwtExp } from "../utils/parseJwtExp";
 import type { ApiEnvelope, AuthPayload, User } from "../types/apiResponse";
+import type { Profile, updateProfileRequest } from "../types/UserDto"
 
 type ServerError = { message?: string; code?: string };
 
@@ -87,3 +88,21 @@ export async function refresh(savedRT: string) {
     throw e;
   } 
 }
+
+/**
+ * 내 정보 조회 
+ */
+export const fetchMyInfo = async () => {
+  const res = await axiosInstance.get<ApiEnvelope<Profile>>("/users/me");
+  return res.data.data; 
+};
+
+/**
+ * 내 정보 수정 
+ */
+export const updateMyInfo = async (
+  payload: updateProfileRequest
+) => {
+  const res = await axiosInstance.patch<ApiEnvelope<Profile>>("/users", payload);
+  return res.data.data; 
+};

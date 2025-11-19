@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useAuthStore } from '../store/authStore';
-import { signout } from '../apis/authApis'
 import { ProtectedRoute } from './ProtectedRoute';
 import LpCreateModal from '../components/LPCreateModal';
+import { useSignoutMutation } from '../hooks/useAuthMutation';
 
 const RootLayout = () => {
   const status = useAuthStore((s) => s.status);
   const user = useAuthStore((s) => s.user);
   const navigate = useNavigate();
+
+  const { mutate: signout } = useSignoutMutation();
 
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
@@ -18,12 +20,16 @@ const RootLayout = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleLogout = async () => {
-    try {
-      await signout();      // 서버 쿠키 삭제 + Zustand 초기화
-      navigate('/');        // 홈으로 이동
-    } catch (e) {
-      console.error('[signout] failed:', e);
-    }
+    signout(undefined, {
+      onSuccess: () => {
+        alert("로그아웃에 성공했습니다.");
+        navigate("/");
+      },
+      onError: (error) => {
+        console.log("[로그아웃 실패]: ", error);
+        alert("로그아웃에 실패했습니다.");
+      },
+    })  
   };
 
   useEffect(() => {

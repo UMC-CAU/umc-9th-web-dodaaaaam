@@ -1,6 +1,6 @@
 import axiosInstance from "../utils/axiosInstance";
 import type { ApiEnvelope, CursorPayload } from "../types/apiResponse";
-import type { CreateLpRequest, LP } from "../types/LpDto";
+import type { LpRequest, UpdateLpRequest, LP } from "../types/LpDto";
 
 const PAGE_SIZE = 30;
 
@@ -47,8 +47,26 @@ export const fetchLPDetail = async (
  * LP 생성 
  */
 export const createLP = async (
-  payload: CreateLpRequest
+  payload: LpRequest
 ): Promise<ApiEnvelope<LP>> => {
   const res = await axiosInstance.post("/lps", payload);
+  return res.data;
+};
+
+/**
+ * LP 수정 
+ */
+export const updateLP = async (
+  payload: UpdateLpRequest
+): Promise<ApiEnvelope<LP>> => {
+  const res = await axiosInstance.patch<ApiEnvelope<LP>>(`/lps/${payload.id}`, payload.content);
+  return res.data;
+};
+
+/**
+ * LP 삭제 
+ */
+export const deleteLP = async (id: number) => {
+  const res = await axiosInstance.delete(`/lps/${id}`);
   return res.data;
 };

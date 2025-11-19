@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useCreateLpMutation } from "../hooks/useLPMutation";
-import type { CreateLpRequest } from "../types/LpDto";
+import type { LpRequest } from "../types/LpDto";
 import LPImage from "../assets/LP.jpg";
 
 interface LpCreateModalProps {
@@ -13,7 +13,7 @@ export default function LpCreateModal({ isOpen, onClose }: LpCreateModalProps) {
   const navigate = useNavigate();
   const { mutate: createLp, isPending } = useCreateLpMutation();
 
-  const [form, setForm] = useState<CreateLpRequest>({
+  const [form, setForm] = useState<LpRequest>({
     title: "",
     content: "",
     thumbnail: "",

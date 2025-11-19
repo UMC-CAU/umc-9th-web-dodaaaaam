@@ -18,6 +18,10 @@ type AuthState = {
     user?: User | null; 
   }) => void;
 
+  setUser: (p: {
+    user?: User | null; 
+  }) => void;
+
   logout: () => void;
   refresh: () => Promise<string>; 
 };
@@ -59,6 +63,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         user: null,
         status: 'unauthenticated',
       });
+    }
+  },
+
+  setUser: ({ user }) => {
+    if (user !== undefined) {
+      if (user) localStorage.setItem("user", JSON.stringify(user));
+      else localStorage.removeItem("user");
+      set({ user });
     }
   },
 
