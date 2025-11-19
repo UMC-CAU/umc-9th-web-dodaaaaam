@@ -25,7 +25,12 @@ export interface LP {
   author: Author;
 }
 
-export interface CreateLpRequest {
+export interface UpdateLpRequest {
+  id: number;
+  content: LpRequest
+}
+
+export interface LpRequest {
   title: string;
   content: string;
   thumbnail: string;
