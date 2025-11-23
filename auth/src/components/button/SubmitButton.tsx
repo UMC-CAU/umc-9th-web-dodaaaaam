@@ -1,5 +1,5 @@
 import { useFormContext, useFormState, type FieldValues, type Path, } from "react-hook-form";
-import type { SubmitButtonProps } from "../types/form-controls";
+import type { SubmitButtonProps } from "../../types/form-controls";
 
 export function SubmitButton<T extends FieldValues>(props: SubmitButtonProps<T>) {
   const { control, trigger } = useFormContext<T>();

@@ -1,8 +1,8 @@
 import { useEffect, type JSX } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthStore } from "../store/authStore";
-import { parseJwtExp } from "../utils/parseJwtExp";
-import FullPageSpinner from "../components/FullPageSpinner";
+import { useAuthStore } from "../../store/authStore";
+import { parseJwtExp } from "../../utils/parseJwtExp";
+import FullPageSpinner from "../../components/button/FullPageSpinner";
 
 // 쿼리 파라미터 꺼내기
 function getParamFromBoth(search: string, hash: string, key: string): string | null {

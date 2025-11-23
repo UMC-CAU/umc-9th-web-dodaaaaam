@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import axiosInstance from "../lib/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
 
 export default function GoogleLoginButton(): JSX.Element {
   const baseURL = axiosInstance.defaults.baseURL?.replace(/\/$/, "") ?? "";

@@ -1,19 +1,24 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useEffect } from 'react';
 
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
-import PremiumPage from './pages/PremiumPage';
-import RootLayout from './layout/root-layout'
-import { ProtectedRoute } from './components/ProtectedRoute';
-//import { useAuthStore } from './store/authStore';
-import { useExpiry} from './hooks/useExpiry';
-import { useEffect } from 'react';
-import { useAuthStore } from "./store/authStore";
-import GoogleCallbackPage from './pages/GoogleCallbackPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignUpPage from './pages/auth/SignUpPage';
+import SearchPage from './pages/SearchPage';
+import MyPage from './pages/MyPage';
+import GoogleCallbackPage from './pages/auth/GoogleCallbackPage';
 
-// 경로(path)와 보여줄 화면(element)를 정의
+import RootLayout from './layout/root-layout'
+import { ProtectedRoute } from './layout/ProtectedRoute';
+
+import { useExpiry} from './hooks/useExpiry';
+import { useAuthStore } from "./store/authStore";
+import { DetailedPage } from './pages/LP/DetailedPage';
+import { CommentPage } from './pages/LP/CommentPage';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,10 +29,30 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/premium",
+        path: "/search",
+        element: <SearchPage />,
+      },
+      {
+        path: "/myPage",
         element: (
           <ProtectedRoute>
-            <PremiumPage />
+            <MyPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/lps/:lpId",
+        element: (
+          <ProtectedRoute>
+            <DetailedPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/lps/:lpId/comments",
+        element: (
+          <ProtectedRoute>
+            <CommentPage />
           </ProtectedRoute>
         ),
       },
@@ -46,6 +71,8 @@ const router = createBrowserRouter([
     element: <GoogleCallbackPage />,
   }
 ]);
+
+const queryClient = new QueryClient();
 
 function App() {
   const { setToken } = useAuthStore.getState();
@@ -66,7 +93,17 @@ function App() {
 
   useExpiry();
   
-  return <RouterProvider router={router} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* 애플리케이션 컴포넌트 페이지 컴포넌트 등등 */}
+      <RouterProvider router={router} />
+      <ReactQueryDevtools  
+        initialIsOpen={false}               // 시작 시 패널 열림 여부
+        buttonPosition="bottom-right"       // 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'relative'
+        position="bottom"                   // 'top' | 'bottom' | 'left' | 'right'
+      />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

@@ -1,31 +1,31 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import loginImage from "../assets/login-image.png";
-import { InputField } from "../components/InputField";
-import { SubmitButton } from "../components/SubmitButton";
-import { BackButton } from "../components/BackButton";
-import GoogleLoginButton from "../components/GoogleLoginButton";
-import { signin } from "../apis/auth";
-
-type LoginValues = {
-  email: string;
-  password: string;
-};
+import loginImage from "../../assets/login-image.png";
+import { InputField } from "../../components/InputField";
+import { SubmitButton } from "../../components/button/SubmitButton";
+import { BackButton } from "../../components/button/BackButton";
+import GoogleLoginButton from "../../components/button/GoogleLoginButton";
+import { useSigninMutation } from "../../hooks/useAuthMutation";
+import type { signinRequest } from "../../types/UserDto"
 
 const LoginPage = () => {
-  const methods = useForm<LoginValues>({ mode: "onChange" });
-  const navigate = useNavigate();
+  const methods = useForm<signinRequest>({ mode: "onChange" });
   
-  const onSubmit = async (value: LoginValues) => {
-    try {
-      await signin(value);      // ← 토큰 저장까지 끝!
-      navigate("/");            // ← 홈으로 이동
-    } catch (err){
-      // 서버에서 온 메시지나 기본 메시지를 표시
-      console.error("[signin FAIL]", err);
-      const message = err instanceof Error ? err.message : "로그인에 실패했습니다.";
-      alert(message);
-    }
+  const navigate = useNavigate();
+
+  const { mutate: signin } = useSigninMutation();
+
+  const onSubmit = async (value: signinRequest) => {
+    signin(value, {
+      onSuccess: () => {
+        alert("로그인에 성공했습니다.");
+        navigate("/");
+      },
+      onError: (error) => {
+        console.log("[로그인 실패]: ", error);
+        alert("로그인에 실패했습니다.");
+      },
+    })  
   };
 
   return (
@@ -42,14 +42,14 @@ const LoginPage = () => {
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
               {/* 이메일 */}
-              <InputField<LoginValues> name="email" type="email" placeholder="이메일을 입력하세요." 
+              <InputField<signinRequest> name="email" type="email" placeholder="이메일을 입력하세요." 
                 rules={{
                   required: "이메일은 필수입니다.",
                   pattern: { value: /^\S+@\S+\.\S+$/, message: "형식이 올바르지 않습니다." },
                 }}
               />
               {/* 비밀번호 */}
-              <InputField<LoginValues> name="password" type="password" placeholder="비밀번호를 입력하세요." withVisibilityToggle
+              <InputField<signinRequest> name="password" type="password" placeholder="비밀번호를 입력하세요." withVisibilityToggle
                 rules={{
                   required: "비밀번호는 필수입니다.",
                   minLength: { value: 8, message: "8자 이상 입력하세요." },
@@ -60,7 +60,12 @@ const LoginPage = () => {
                 }}
               />
               {/* 제출 버튼 */}
-              <SubmitButton<LoginValues> variant="submit">로그인</SubmitButton>
+              <SubmitButton<signinRequest> variant="submit">로그인</SubmitButton>
+              <div className="flex items-center">
+                <div className="flex-grow border-t border-zinc-600"></div>
+                  <span className="mx-3 text-zinc-400 text-sm">OR</span>
+                <div className="flex-grow border-t border-zinc-600"></div>
+              </div>
               <GoogleLoginButton />
             </form>
           </FormProvider>
