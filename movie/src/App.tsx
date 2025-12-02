@@ -9,6 +9,7 @@ import RootLayout from './layout/root-layout';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 
+
 // 경로(path)와 보여줄 화면(element)를 정의
 const router = createBrowserRouter([
   {
